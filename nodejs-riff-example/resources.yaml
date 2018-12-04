@@ -1,0 +1,24 @@
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: nodejs-riff-module-git
+  namespace: default
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/triggermesh/nodejs-runtime.git
+  - name: revision
+    value: HEAD
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: nodejs-riff-module-image
+  namespace: default
+spec:        
+  type: image
+  params:
+  - name: url
+    value: knative.registry.svc.cluster.local/knative-training/nodejs-riff-module:latest

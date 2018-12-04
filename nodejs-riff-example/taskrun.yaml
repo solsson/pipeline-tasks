@@ -1,0 +1,29 @@
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: TaskRun
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: nodejs-riff
+spec:
+  taskRef:
+    name: nodejs-riff-build
+  trigger:
+    triggerRef:
+      type: manual
+  inputs:
+    resources:
+    - name: workspace
+      resourceRef:
+        name: nodejs-riff-module-git
+    params:
+    - name: directory
+      value: ./example-module
+    - name: functionName
+      value: ""
+    - name: reproducible
+      value: "true"
+  outputs:
+    resources:
+    - name: builtImage
+      resourceRef:
+        name: nodejs-riff-module-image
