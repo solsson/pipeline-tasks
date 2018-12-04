@@ -17,10 +17,10 @@ kind: TaskRun
 metadata:
   labels:
     controller-tools.k8s.io: "1.0"
-  name: nodejs-riff
+  name: azure
 spec:
   taskRef:
-    name: nodejs-riff-build
+    name: azure-build
   trigger:
     triggerRef:
       type: manual
@@ -28,14 +28,12 @@ spec:
     resources:
     - name: workspace
       resourceRef:
-        name: nodejs-riff-module-git
+        name: azure-git
     params:
     - name: directory
-      value: ./example-module
-    - name: functionName
-      value: ""
+      value: ./MyFunctionProj
   outputs:
     resources:
     - name: builtImage
       resourceRef:
-        name: nodejs-riff-module-image
+        name: azure-image

@@ -12,30 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+---
 apiVersion: pipeline.knative.dev/v1alpha1
-kind: TaskRun
+kind: PipelineResource
 metadata:
-  labels:
-    controller-tools.k8s.io: "1.0"
-  name: nodejs-riff
+  name: azure-git
+  namespace: default
 spec:
-  taskRef:
-    name: nodejs-riff-build
-  trigger:
-    triggerRef:
-      type: manual
-  inputs:
-    resources:
-    - name: workspace
-      resourceRef:
-        name: nodejs-riff-module-git
-    params:
-    - name: directory
-      value: ./example-module
-    - name: functionName
-      value: ""
-  outputs:
-    resources:
-    - name: builtImage
-      resourceRef:
-        name: nodejs-riff-module-image
+  type: git
+  params:
+  - name: url
+    value: https://github.com/triggermesh/azure-runtime.git
+  - name: revision
+    value: HEAD
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: azure-image
+  namespace: default
+spec:        
+  type: image
+  params:
+  - name: url
+    value: knative.registry.svc.cluster.local/knative-training/azure:latest
