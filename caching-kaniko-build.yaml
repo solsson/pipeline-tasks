@@ -41,3 +41,8 @@ spec:
     - --dockerfile=${inputs.params.pathToDockerFile}
     - --destination=${outputs.resources.builtImage.url}
     - --context=${inputs.params.pathToContext}
+    - --cache=true
+    - --cache-dir=/cache
+  volumeMounts:
+  - name: kaniko-cache
+    mountPath: /cache

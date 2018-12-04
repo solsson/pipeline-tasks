@@ -13,7 +13,7 @@ spec:
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: caching-kaniko-image
+  name: caching-kaniko-image  
 spec:        
   type: image
   params:
@@ -48,3 +48,7 @@ spec:
     - name: builtImage
       resourceRef:
         name: caching-kaniko-image
+  volumes:
+  - name: kaniko-cache
+    persistentVolumeClaim:
+      claimName: kaniko-cache
