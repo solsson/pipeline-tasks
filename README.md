@@ -32,6 +32,25 @@ kubectl apply -f azure-example/resources.yaml
 kubectl apply -f azure-example/taskrun.yaml
 ```
 
+## Kaniko build caching
+
+As soon as you intend to use your images in production we recommend build layer caching. Advantages:
+
+ * Faster builds
+ * Less space used for image registry storage
+ * Faster pulls at upgrade
+
+Like with Docker the advantages depend on Dockerfile design,
+but anyhow Build Pipeline manifests can be used to set up Kaniko caching.
+
+The example uses file system caching and sets up one [pvc]() per namespace.
+This means that you can run only one build at a time per namespace,
+as the build pod needs to mount the volume.
+
+Caching between different builds is often not desirable but can have all the above advantages,
+in particular if you reuse Dockerfiles.
+Pay attention to the `claimName` in your runs, and edit at will.
+
 ## Support
 
 We would love your feedback on this project so don't hesitate to let us know what is wrong and how we could improve it, just file an [issue](https://github.com/triggermesh/charts/issues/new)
