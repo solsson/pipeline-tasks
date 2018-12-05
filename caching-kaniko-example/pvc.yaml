@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: kaniko-cache
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      # If your storageclass supports allowVolumeExpansion you can increase this at any time
+      storage: 1Gi

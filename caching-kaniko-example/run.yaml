@@ -1,0 +1,54 @@
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: caching-kaniko-git
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/triggermesh/pipeline-tasks
+  - name: revision
+    value: build-caching
+---        
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: caching-kaniko-image  
+spec:        
+  type: image
+  params:
+  - name: url
+    value: knative.registry.svc.cluster.local/knative-training/caching-kaniko:latest
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: caching-kaniko
+spec:
+  taskRef:
+    name: caching-kaniko
+  trigger:
+    triggerRef:
+      type: manual
+  results:
+    type: 'gcs'
+    url: 'gcs://somebucket/results/logs'
+  inputs:
+    resources:
+    - name: workspace
+      resourceRef:
+        name: caching-kaniko-git
+    params:
+    - name: pathToDockerFile
+      value: Dockerfile
+    - name: pathToContext
+      value: /workspace/caching-kaniko-example
+  outputs:
+    resources:
+    - name: builtImage
+      resourceRef:
+        name: caching-kaniko-image
+  volumes:
+  - name: kaniko-cache
+    persistentVolumeClaim:
+      claimName: kaniko-cache
