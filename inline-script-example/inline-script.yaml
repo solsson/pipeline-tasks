@@ -42,5 +42,7 @@ spec:
         echo "Function running $1"
       }
       my_function "OK."
+      # Build pipeline parameter
+      echo "Value of a TaskRun param: \"${inputs.params.myparam}\"."
       # what more could we test?
       echo "All done."
