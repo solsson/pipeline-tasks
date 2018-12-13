@@ -1,0 +1,24 @@
+{
+  "name": "knative-pipeline-tasks-example-nodefrontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./index.spec",
+    "start": "node ./index",
+    "prepare": "echo 'Prepare! Here we tend to do important stuff like transpile.'",
+    "preshrinkwrap": "echo 'Pre-shrinkwrap C!'",
+    "shrinkwrap": "echo 'Shrinkwrap C!'",
+    "postshrinkwrap": "echo 'Post-shrinkwrap C!'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "abbrev": "1.1.1",
+    "knative-pipeline-tasks-example-nodelib": "file:../nodelib",
+    "knative-pipeline-tasks-example-nodelib2": "file:../libsfolder/nodelib2"
+  },
+  "devDependencies": {
+    "yn": "2.0.0"
+  }
+}

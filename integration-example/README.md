@@ -1,0 +1,2 @@
+# Example multi-module repository
+
