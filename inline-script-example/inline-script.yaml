@@ -1,0 +1,46 @@
+# Copyright 2018 TriggerMesh, Inc
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: Task
+metadata:
+  name: inline-script
+  namespace: default
+spec:
+  inputs:
+  outputs:
+  steps:
+  - name: script
+    image: busybox@sha256:2a03a6059f21e150ae84b0973863609494aad70f0a80eaeb64bddd8d92465812
+    command:
+    - /bin/sh
+    args:
+    - -c
+    - |
+      echo "Inline bash running, no need for trailing ; for each command."
+      # comment
+      echo "Comments should not interrupt the flow."
+      # heredoc
+      cat <<EOF
+      {
+        "heredoc": "with indentation"
+      }
+      EOF
+      # function
+      my_function() {
+        echo "Function running $1"
+      }
+      my_function "OK."
+      # what more could we test?
+      echo "All done."
