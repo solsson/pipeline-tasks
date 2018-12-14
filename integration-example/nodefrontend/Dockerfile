@@ -12,12 +12,8 @@ FROM node:10.14.2-slim
 
 WORKDIR /usr/src/app
 
-COPY --from=knative-pipeline-tasks-example-nodelib /exports/package node_modules/knative-pipeline-tasks-example-nodelib
-COPY --from=knative-pipeline-tasks-example-nodelib2 /exports/package node_modules/knative-pipeline-tasks-example-nodelib2
-
-RUN ls -l node_modules/
-RUN ls -l node_modules/knative-pipeline-tasks-example-nodelib/
-RUN ls -l node_modules/knative-pipeline-tasks-example-nodelib2/
+COPY --from=knative-pipeline-tasks-example-nodelib /exports/package /usr/src/nodelib
+COPY --from=knative-pipeline-tasks-example-nodelib2 /exports/package /usr/src/libsfolder/nodelib2
 
 #COPY package-lock.json package.json ./
 #RUN npm ci
