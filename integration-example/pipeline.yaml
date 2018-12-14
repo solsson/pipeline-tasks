@@ -1,0 +1,19 @@
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: integration-example
+spec:
+  tasks:
+  - name: export-npmlib
+    taskRef:
+      name: npm-export
+    params:
+    - name: directory
+      value: integration-example/nodelib
+  # - name: deploy-app
+  #   taskRef:
+  #     name: 
+  #   resources:
+  #   - name: image
+  #     providedBy:
+  #     - build-skaffold-app

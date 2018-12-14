@@ -1,0 +1,21 @@
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: integration-example-git
+spec:
+  type: git
+  params:
+  - name: revision
+    value: master
+  - name: url
+    value: http://builds.git.svc.cluster.local/ExampleSource/integration-example.git
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: integration-example-npmlib-image
+spec:        
+  type: image
+  params:
+  - name: url
+value: builds.registry.svc.cluster.local/integration-example/nodelib
