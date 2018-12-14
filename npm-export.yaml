@@ -29,9 +29,10 @@ spec:
     args:
     - -c
     - |
-      #cat <<EOF > ${input.params.directory}/Dockerfile
-      # getting /bin/sh: syntax error: bad substitution
-      cat <<EOF > nodelib/Dockerfile
+      echo "Param value - dockerfile: \"${inputs.params.directory}\"."
+      echo "Param value - image url : \"${outputs.resources.builtImage.url}\"."
+      echo "Param value - revision  : \"${inputs.resources.workspace.revision}\"."
+      cat <<EOF > "${inputs.params.directory}/Dockerfile"
       FROM node:10.14.2-slim
       RUN mkdir -p /exports/package
       WORKDIR /usr/src/app

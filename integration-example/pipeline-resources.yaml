@@ -18,4 +18,4 @@ spec:
   type: image
   params:
   - name: url
-value: builds.registry.svc.cluster.local/integration-example/nodelib
+    value: builds.registry.svc.cluster.local/integration-example/nodelib

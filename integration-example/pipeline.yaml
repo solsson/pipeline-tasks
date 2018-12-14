@@ -7,21 +7,8 @@ spec:
   - name: export-npmlib
     taskRef:
       name: npm-export
-    inputs:
-      params:
-      - name: directory
-        #value: integration-example/nodelib
-        # With local git we're only pushing the project folder
-        value: nodelib
     params:
     - name: directory
       #value: integration-example/nodelib
       # With local git we're only pushing the project folder
       value: nodelib
-  # - name: deploy-app
-  #   taskRef:
-  #     name: 
-  #   resources:
-  #   - name: image
-  #     providedBy:
-  #     - build-skaffold-app

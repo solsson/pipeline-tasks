@@ -17,17 +17,7 @@ spec:
     - name: workspace
       resourceRef:
         name: integration-example-git
-      params:
-      - name: directory
-        #value: integration-example/nodelib
-        # With local git we're only pushing the project folder
-        value: nodelib
     outputs:
     - name: builtImage
       resourceRef: 
         name: integration-example-npmlib-image
-    params:
-    - name: directory
-      #value: integration-example/nodelib
-      # With local git we're only pushing the project folder
-      value: nodelib
