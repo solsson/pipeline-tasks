@@ -25,7 +25,7 @@ rm -rf ./.git
 #cat service-build.yaml | sed "s/revision: master/revision: $GITREV/" | kubectl apply -f -
 
 # Can we use k8s' generateName from kubectl
-namespace=pipelinerun-$(openssl rand -hex 4)
+namespace=pipelinerun-$(date -u "+%y%m%dt%H%M%S")-$(openssl rand -hex 4)
 
 kubectl create namespace $namespace
 kubectl -n $namespace apply -f ../caching-kaniko-build.yaml
@@ -33,3 +33,6 @@ kubectl -n $namespace apply -f ../npm-export.yaml
 kubectl -n $namespace apply -f ./pipeline.yaml
 kubectl -n $namespace apply -f ./pipeline-resources.yaml
 kubectl -n $namespace apply -f ./pipeline-run.yaml
+namespace="$namespace"
+echo "kubectl -n $namespace"
+kubectl -n $namespace get pods -w
