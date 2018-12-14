@@ -19,7 +19,6 @@
     "knative-pipeline-tasks-example-nodelib": "*"
   },
   "devDependencies": {
-    "wrappy": "1.0.2",
-    "knative-pipeline-tasks-example-nodelib": "file:../../nodelib"
+    "wrappy": "1.0.2"
   }
 }

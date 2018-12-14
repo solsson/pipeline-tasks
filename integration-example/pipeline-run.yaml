@@ -21,3 +21,21 @@ spec:
     - name: builtImage
       resourceRef: 
         name: integration-example-npmlib-image
+  - name: export-npmlib2
+    inputs:
+    - name: workspace
+      resourceRef:
+        name: integration-example-git
+    outputs:
+    - name: builtImage
+      resourceRef:
+        name: integration-example-npmlib2-image
+  - name: build-nodefrontend
+    inputs:
+    - name: workspace
+      resourceRef:
+        name: integration-example-git
+    outputs:
+    - name: builtImage
+      resourceRef:
+        name: integration-example-nodefrontend-image

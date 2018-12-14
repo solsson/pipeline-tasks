@@ -1,4 +1,5 @@
-let c = require('knative-pipeline-tasks-example-nodelib');
+// TODO add to package.json dependencies: "knative-pipeline-tasks-example-nodelib": "file:../../nodelib"
+//let c = require('knative-pipeline-tasks-example-nodelib');
 let Walker = require('walker');
 let w = Walker('./');
 let fs = require('fs');
@@ -11,7 +12,7 @@ try {
 
 module.exports = function run(cb) {
   w.on('end', () => {
-    console.log('nodelib2 async end for', c.now);
+    console.log('nodelib2 async end for', /* TODO c.now */ 'Current build does not support lib dependent on lib');
     cb();
   });
 }

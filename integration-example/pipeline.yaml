@@ -12,3 +12,17 @@ spec:
       #value: integration-example/nodelib
       # With local git we're only pushing the project folder
       value: nodelib
+  - name: export-npmlib2
+    taskRef:
+      name: npm-export
+    params:
+    - name: directory
+      value: libsfolder/nodelib2
+  - name: build-nodefrontend
+    taskRef:
+      name: caching-kaniko
+    params:
+    - name: pathToDockerFile
+      value: /workspace/nodefrontend/Dockerfile
+    - name: pathToContext
+      value: /workspace/nodefrontend

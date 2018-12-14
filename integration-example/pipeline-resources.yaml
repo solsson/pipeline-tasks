@@ -19,3 +19,23 @@ spec:
   params:
   - name: url
     value: builds.registry.svc.cluster.local/integration-example/nodelib
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: integration-example-npmlib2-image
+spec:
+  type: image
+  params:
+  - name: url
+    value: builds.registry.svc.cluster.local/integration-example/nodelib
+---
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: integration-example-nodefrontend-image
+spec:
+  type: image
+  params:
+  - name: url
+    value: builds.registry.svc.cluster.local/integration-example/nodefrontend

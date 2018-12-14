@@ -3,7 +3,11 @@
 # Argh... ARG isn't working
 FROM builds.registry.svc.cluster.local/integration-example/nodelib as knative-pipeline-tasks-example-nodelib
 
-FROM node:10.14.2-slim@sha256:7e6741b8b25881f50c6294b907d8ee9e63c735438e4d62b96ce019050df256bf
+# Kaniko doesn't support tag+digest
+#FROM node:10.14.2-slim@sha256:7e6741b8b25881f50c6294b907d8ee9e63c735438e4d62b96ce019050df256bf
+# Got: WARN[0000] Error while retrieving image from cache: geting file info: stat /cache/sha256:7e6741b8b25881f50c6294b907d8ee9e63c735438e4d62b96ce019050df256bf: no such file or directory
+#FROM node@sha256:7e6741b8b25881f50c6294b907d8ee9e63c735438e4d62b96ce019050df256bf
+FROM node:10.14.2-slim
 
 WORKDIR /usr/src/app
 
