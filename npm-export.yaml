@@ -29,8 +29,10 @@ spec:
     args:
     - -c
     - |
-      cat <<EOF > ${input.params.directory}/Dockerfile
-      FROM node:10.14.2-slim@sha256:7e6741b8b25881f50c6294b907d8ee9e63c735438e4d62b96ce019050df256bf
+      #cat <<EOF > ${input.params.directory}/Dockerfile
+      # getting /bin/sh: syntax error: bad substitution
+      cat <<EOF > nodelib/Dockerfile
+      FROM node:10.14.2-slim
       RUN mkdir -p /exports/package
       WORKDIR /usr/src/app
       COPY package*.json .
