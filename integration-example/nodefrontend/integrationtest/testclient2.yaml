@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: testclient2
   labels:
-    # An alternative to "completion" could be "readiness"
     test-type: completion
 spec:
   restartPolicy: OnFailure
@@ -11,6 +10,7 @@ spec:
   - name: test
     image: solsson/curl@sha256:92ebf15ac57bea360484480336ed5d9fa16d38d773fd00f7e9fb2cae94baf25a
     args:
+    - --ipv4
     - --retry
     - '5'
     - --retry-connrefused

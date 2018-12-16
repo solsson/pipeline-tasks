@@ -9,7 +9,7 @@ spec:
   restartPolicy: Never
   containers:
   - name: test
-    image: solsson/curl@sha256:92ebf15ac57bea360484480336ed5d9fa16d38d773fd00f7e9fb2cae94baf25a
+    image: gcr.io/cloud-builders/curl@sha256:0b5ecb88eac8ecb20d2f50ad9850eb26820d7f0d260fd2cdce113ac4ef68f816
     args:
     - --retry
     - '5'
