@@ -1,7 +1,6 @@
 # Test and package an npm library
 # Builds an "export" image, which is only a convention
 # to let other docker builds do COPY --from=builds.registry.svc.cluster.local/...
-# Caching is essential for this task, to let us build all libs at every push
 
 apiVersion: pipeline.knative.dev/v1alpha1
 kind: Task
@@ -61,3 +60,9 @@ spec:
     # Until we've figured out how to deal with source ref and/or output image digest in knative
     # https://github.com/knative/build-pipeline/issues/216#issuecomment-443540440 etc.
     - --destination=${outputs.resources.builtImage.url}:latest
+    # Caching is essential for this task, to let us build all libs at every push
+    - --cache=true
+    - --cache-dir=/cache
+  volumeMounts:
+  - name: kaniko-cache
+    mountPath: /cache
