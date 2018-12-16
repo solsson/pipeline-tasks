@@ -39,3 +39,8 @@ spec:
     - name: builtImage
       resourceRef:
         name: integration-example-nodefrontend-image
+  - name: itest-nodefrontend
+    inputs:
+    - name: workspace
+      resourceRef:
+        name: integration-example-git

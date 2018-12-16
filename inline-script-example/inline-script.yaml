@@ -16,7 +16,6 @@ apiVersion: pipeline.knative.dev/v1alpha1
 kind: Task
 metadata:
   name: inline-script
-  namespace: default
 spec:
   inputs:
   outputs:

@@ -26,3 +26,7 @@ spec:
       value: /workspace/nodefrontend/Dockerfile
     - name: pathToContext
       value: /workspace/nodefrontend
+  - name: itest-nodefrontend
+    taskRef:
+      name: test-completion
+    params: []

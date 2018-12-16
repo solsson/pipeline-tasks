@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nodefrontend
+spec:
+  selector:
+    app: nodefrontend
+  ports:
+  - port: 8080

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodefrontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodefrontend
+  template:
+    metadata:
+      labels:
+        app: nodefrontend
+    spec:
+      containers:
+      - name: automation
+        image: builds.registry.svc.cluster.local/integration-example/nodefrontend
+        # Until we have a way to get the tag or digest from the build into the image URL
+        imagePullPolicy: Always

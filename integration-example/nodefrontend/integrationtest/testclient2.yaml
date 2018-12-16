@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testclient2
+  labels:
+    # An alternative to "completion" could be "readiness"
+    test-type: completion
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: test
+    image: solsson/curl@sha256:92ebf15ac57bea360484480336ed5d9fa16d38d773fd00f7e9fb2cae94baf25a
+    args:
+    - --retry
+    - '5'
+    - --retry-connrefused
+    - -f
+    - http://nodefrontend:8080

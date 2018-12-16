@@ -1,0 +1,29 @@
+# Applies a yaml folder and waits for all pods with
+# label test-type=completion to have status Completed
+
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: Task
+metadata:
+  name: test-completion
+spec:
+  inputs:
+    resources:
+    - name: workspace
+      type: git
+  outputs:
+  steps:
+  - name: script
+    image: lachlanevenson/k8s-kubectl:v1.13.1@sha256:02ca7f1a0f0410a6de924c08284ceae4102b206d801522bf51d505959174021d
+    command:
+    - /bin/sh
+    args:
+    - -c
+    - |
+      kubectl apply -f nodefrontend/integrationtest/
+      while true; do
+        date
+        kubectl get pods -l test-type=completion -o jsonpath='{range .items[*]}{.metadata.name} {range .status.conditions[0]}{.reason} {.status}{"\n"}' > /teststatus
+        [[ -s /teststatus ]] && grep -v 'PodCompleted True' /teststatus || break
+        sleep 1
+      done
+      echo "All tests seem to have passed"
