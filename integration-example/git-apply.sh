@@ -28,6 +28,7 @@ rm -rf ./.git
 namespace=pipelinerun-$(date -u "+%y%m%dt%H%M%S")-$(openssl rand -hex 4)
 
 kubectl create namespace $namespace
+kubectl -n $namespace apply -f https://github.com/knative/build-pipeline/raw/master/examples/build-task.yaml
 kubectl -n $namespace apply -f ../caching-kaniko-build.yaml
 kubectl -n $namespace apply -f ../npm-export.yaml
 kubectl -n $namespace apply -f ../test-completion.yaml
