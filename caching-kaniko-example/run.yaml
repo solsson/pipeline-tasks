@@ -62,7 +62,3 @@ spec:
     - name: builtImage
       resourceRef:
         name: caching-kaniko-image
-  volumes:
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache
