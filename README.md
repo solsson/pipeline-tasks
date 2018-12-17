@@ -60,6 +60,9 @@ because you'll probably want to keep these caches long term. After that:
 kubectl apply -f caching-kaniko-build.yaml
 kubectl apply -f caching-kaniko-example/pvc.yaml
 kubectl apply -f caching-kaniko-example/run.yaml
+# wait for build, then re-run without deleting the pvc
+kubectl delete -f caching-kaniko-example/run.yaml
+kubectl apply -f caching-kaniko-example/run.yaml
 ```
 
 ## Support

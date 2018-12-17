@@ -43,6 +43,10 @@ spec:
     - --context=${inputs.params.pathToContext}
     - --cache=true
     - --cache-dir=/cache
-  volumeMounts:
+    volumeMounts:
+    - name: kaniko-cache
+      mountPath: /cache
+  volumes:
   - name: kaniko-cache
-    mountPath: /cache
+    persistentVolumeClaim:
+      claimName: kaniko-cache
