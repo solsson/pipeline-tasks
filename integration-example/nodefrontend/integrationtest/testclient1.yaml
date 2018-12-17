@@ -6,7 +6,7 @@ metadata:
     # An alternative to "completion" could be "readiness"
     test-type: completion
 spec:
-  restartPolicy: Never
+  restartPolicy: OnFailure
   containers:
   - name: test
     image: gcr.io/cloud-builders/curl@sha256:0b5ecb88eac8ecb20d2f50ad9850eb26820d7f0d260fd2cdce113ac4ef68f816

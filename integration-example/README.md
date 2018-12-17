@@ -16,7 +16,6 @@ TODO:
    - and _not_ pushed upon test failure
  * Skip integration tests (they are slow) if all built images for it are unchanged
    - and show how to force test re-run
- * We currently have a good example of flaky integration tests, with curl sometimes failing to connect to the service-under-test. Let's make that robust furst and only later introduce flakyness.
  * Once this entire example is robust we can update the build to run directly off github, and remove the git step below.
 
 ## Running the example
