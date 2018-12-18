@@ -90,7 +90,7 @@ kubectl describe ksvc nodejs-riff
 
 Note: Out of the box Serving failed to create the build, error: `Revision creation failed with message: "taskruns.pipeline.knative.dev is forbidden: User \"system:serviceaccount:knative-serving:controller\" cannot create taskruns.pipeline.knative.dev in the namespace \"default\"".`. That can be solved by granting cluster-admin rights `kubectl create clusterrolebinding serving-controller-pipeline-build --clusterrole=cluster-admin --serviceaccount=knative-serving:controller --namespace=knative-serving` but more restricted access is probably recommended.
 
-If the build completes and the deployment comes up, probe it using `kubectl run test1 --rm --image=gcr.io/cloud-builders/curl --restart=Never -ti -- -H 'Content-Type: text/plain' -d 'Build Pipeline' nodejs-riff.default.example.com`.
+If the build completes and the deployment comes up, probe it using for example `kubectl run test1 --rm --image=gcr.io/cloud-builders/curl --restart=Never -ti -- -H 'Content-Type: text/plain' -d 'Build Pipeline' -v -H 'Host: nodejs-riff.default.example.com' http://knative-ingressgateway.istio-system`.
 
 ## Support
 
