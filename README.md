@@ -60,10 +60,36 @@ because you'll probably want to keep these caches long term. After that:
 kubectl apply -f caching-kaniko-build.yaml
 kubectl apply -f caching-kaniko-example/pvc.yaml
 kubectl apply -f caching-kaniko-example/run.yaml
-# wait for build, then re-run without deleting the pvc
+# wait for build, then re-run without deleting the pvc, see logs for the effect of caching
 kubectl delete -f caching-kaniko-example/run.yaml
 kubectl apply -f caching-kaniko-example/run.yaml
 ```
+
+## Knative Serving Source-to-URL using Build Pipeline
+
+With Serving [v0.2.3](https://github.com/knative/serving/releases/tag/v0.2.3) we can replace Knative Build with a TaskRun in Service objects.
+
+Let's reuse the Node.js function example above for a complete Source-to-URL example.
+
+```
+kubectl apply -f nodejs-riff-build.yaml
+kubectl apply -f nodejs-riff-example/resources.yaml
+```
+
+The TaskRun yaml can simply be copy-pasted into the Serving definition under `build:`.
+We must also remember to update the `image:` in the `revisionTemplate:`
+to be identical to that of our `image` resource in `resources.yaml`.
+
+```
+cat serving-build-example/service-build.yaml | grep image:
+cat nodejs-riff-example/resources.yaml | grep -A 1 url
+kubectl apply -f serving-build-example/service-build.yaml
+kubectl describe ksvc nodejs-riff
+```
+
+Note: Out of the box Serving failed to create the build, error: `Revision creation failed with message: "taskruns.pipeline.knative.dev is forbidden: User \"system:serviceaccount:knative-serving:controller\" cannot create taskruns.pipeline.knative.dev in the namespace \"default\"".`. That can be solved by granting cluster-admin rights `kubectl create clusterrolebinding serving-controller-pipeline-build --clusterrole=cluster-admin --serviceaccount=knative-serving:controller --namespace=knative-serving` but more restricted access is probably recommended.
+
+If the build completes and the deployment comes up, probe it using for example `kubectl run test1 --rm --image=gcr.io/cloud-builders/curl --restart=Never -ti -- -H 'Content-Type: text/plain' -d 'Build Pipeline' -w '\n' --retry 2 -v -H 'Host: nodejs-riff.default.example.com' http://knative-ingressgateway.istio-system`.
 
 ## Support
 
