@@ -31,6 +31,6 @@ spec:
       name: test-completion
     params:
     - name: apply
-      value: >
+      value: >-
         -f https://github.com/Yolean/kubernetes-kafka/raw/7382b34aa28381c7157f02426290dd7ae4887616/minikafka/minikafka.yaml
         -f nodefrontend/integrationtest/
