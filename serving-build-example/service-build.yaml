@@ -1,0 +1,39 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: nodejs-riff
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      build:
+        apiVersion: pipeline.knative.dev/v1alpha1
+        kind: TaskRun
+        metadata:
+          name: nodejs-riff
+        spec:
+          taskRef:
+            name: nodejs-riff-build
+          trigger:
+            triggerRef:
+              type: manual
+          inputs:
+            resources:
+            - name: workspace
+              resourceRef:
+                name: nodejs-riff-module-git
+            params:
+            - name: directory
+              value: ./example-module
+            - name: functionName
+              value: ""
+          outputs:
+            resources:
+            - name: builtImage
+              resourceRef:
+                name: nodejs-riff-module-image
+      revisionTemplate:
+        spec:
+          container:
+            image: knative.registry.svc.cluster.local/knative-training/nodejs-riff-module:latest
+            imagePullPolicy: Always
