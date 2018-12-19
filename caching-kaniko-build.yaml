@@ -42,11 +42,12 @@ spec:
     - --destination=${outputs.resources.builtImage.url}
     - --context=${inputs.params.pathToContext}
     - --cache=true
-    - --cache-dir=/cache
-    volumeMounts:
-    - name: kaniko-cache
-      mountPath: /cache
-  volumes:
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache
+    - --cache-repo=kanikocache.registry.svc.cluster.local/kaniko-cache
+  - name: just-checking
+    image: debian:stretch-slim
+    command:
+    - /bin/bash
+    args:
+    - -cex
+    - |
+      ls -la /cache || echo "Anything cached locally would have been lost anyway"

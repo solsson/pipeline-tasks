@@ -43,24 +43,13 @@ As soon as you intend to use your images in production we recommend build layer 
 The advantages depend on Dockerfile design,
 but anyhow we recommend that all Build tasks with Kaniko use caching.
 
-The example uses file system caching and sets up one [pvc](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) per namespace.
-This means that you can run only one build at a time per namespace,
-as the build pod needs to mount the volume.
-
-Caching between different builds is often not desirable but can have all the above advantages,
-in particular if you reuse Dockerfiles.
-Pay attention to the `claimName` in your runs, and edit at will.
-
-To run the example apply a [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/)
-such as [gke](./caching-kaniko-example/storageclass-gke.yaml) or [minikube](./caching-kaniko-example/storageclass-minikube.yaml) example.
-We recommend that you use one with `allowVolumeExpansion: true`
-because you'll probably want to keep these caches long term. After that:
+This example uses [an image registry as cache](https://github.com/GoogleContainerTools/kaniko/tree/v0.7.0#--cache-repo) because volumes are impractical (possibly less so if you have [ReadWriteMany](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes) and volumes mountable in all availability zones).
+Using [knative-local-registry]() we've added a dedicated service `kanikocache.registry.svc.cluster.local` but any registry should be ok.
 
 ```
 kubectl apply -f caching-kaniko-build.yaml
-kubectl apply -f caching-kaniko-example/pvc.yaml
 kubectl apply -f caching-kaniko-example/run.yaml
-# wait for build, then re-run without deleting the pvc
+# wait for build, then re-run
 kubectl delete -f caching-kaniko-example/run.yaml
 kubectl apply -f caching-kaniko-example/run.yaml
 ```
