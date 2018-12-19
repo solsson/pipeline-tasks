@@ -52,7 +52,7 @@ in particular if you reuse Dockerfiles.
 Pay attention to the `claimName` in your runs, and edit at will.
 
 To run the example apply a [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/)
-such as [our gke example](./caching-kaniko-example/storageclassl-gke.yaml).
+such as [gke](./caching-kaniko-example/storageclass-gke.yaml) or [minikube](./caching-kaniko-example/storageclass-minikube.yaml) example.
 We recommend that you use one with `allowVolumeExpansion: true`
 because you'll probably want to keep these caches long term. After that:
 

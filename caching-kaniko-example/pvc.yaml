@@ -17,6 +17,7 @@ apiVersion: v1
 metadata:
   name: kaniko-cache
 spec:
+  storageClassName: kaniko-cache
   accessModes:
   - ReadWriteOnce
   resources:

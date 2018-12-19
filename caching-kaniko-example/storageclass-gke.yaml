@@ -19,5 +19,11 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
+  # If you have a multi-zone cluster you might get issues with
+  # the workspace volume and the caching volume being provisioned in different zones
+  # leading to an unschedulable run with the message: node(s) had no available volume zone
+  # In that case it might help to use https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/regional-pd
+  #replication-type: regional-pd
+  #zones: europe-west4-b, europe-west4-c
 reclaimPolicy: Delete
 allowVolumeExpansion: true
