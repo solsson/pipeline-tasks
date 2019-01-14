@@ -1,0 +1,7 @@
+# If your pipeline run is generated at git push with the revision param set to an actual ref
+# you don't need this task
+
+# It reads current git ref and creates a file REVISION_REF in workspace+basedir
+
+# reuse Build Pipe
+image: gcr.io/knative-nightly/github.com/knative/build/cmd/git-init@sha256:97cd31dfb517212aabd31d9ace6da424d0c410a16af5cc6690a8b72312f8b9cd

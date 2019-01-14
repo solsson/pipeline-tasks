@@ -1,0 +1,13 @@
+# For cases where the CI environment doesn't own the pipeline
+
+# Task used for repositories that need a tailored pipeline,
+# i.e. version control (and branch) it with source
+# Gets the pipeline.yaml from workspace + basedir
+# Generates (or propagates) a pipeline run
+
+# Set the actual git revision as param revision
+# (see revision-ref-git.yaml sample task)
+
+# TODO how would we handle branches of the pipeline,
+# or actully how will pipeline history be tracked in Knative?
+
