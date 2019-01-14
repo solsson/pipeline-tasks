@@ -42,7 +42,7 @@ spec:
     - --destination=${outputs.resources.builtImage.url}
     - --context=${inputs.params.pathToContext}
     - --cache=true
-    - --cache-repo=kanikocache.registry.svc.cluster.local/kaniko-cache
+    - --cache-repo=kanikocache.registry.svc.cluster.local/my-kaniko-cache
   - name: just-checking
     image: debian:stretch-slim
     command:

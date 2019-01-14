@@ -29,8 +29,6 @@ namespace=pipelinerun-$(date -u "+%y%m%dt%H%M%S")-$(openssl rand -hex 4)
 
 kubectl create namespace $namespace
 kubectl -n $namespace apply -f https://github.com/knative/build-pipeline/raw/master/examples/build-task.yaml
-# TODO this will enable caching, but per namepace = rather useless if each run gets a new namespace
-kubectl -n $namespace apply -f ../caching-kaniko-example/pvc.yaml
 kubectl -n $namespace apply -f ../caching-kaniko-build.yaml
 kubectl -n $namespace apply -f ../npm-export.yaml
 kubectl -n $namespace apply -f ../test-completion.yaml

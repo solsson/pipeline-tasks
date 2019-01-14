@@ -49,11 +49,6 @@ spec:
       FROM scratch
       COPY --from=0 /exports /exports
       EOF
-      # troubleshooting caching
-      ls -la /cache
-    volumeMounts:
-    - name: kaniko-cache
-      mountPath: /cache
   - name: build-and-push
     image: gcr.io/kaniko-project/executor@sha256:cc999f884178881e638fc943fa76e71a958dcdab1b516281ae0bb749ae2c3a54
     command:
@@ -67,11 +62,4 @@ spec:
     - --destination=${outputs.resources.builtImage.url}:latest
     # Caching is essential for this task, to let us build all libs at every push
     - --cache=true
-    - --cache-dir=/cache
-    volumeMounts:
-    - name: kaniko-cache
-      mountPath: /cache
-  volumes:
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache
+    - --cache-repo=kanikocache.registry.svc.cluster.local/my-kaniko-cache
