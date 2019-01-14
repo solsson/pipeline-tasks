@@ -13,7 +13,8 @@ spec:
     params:
     - name: apply
       description: The arguments to kubectl apply, typically 1+ "-f ..."
-      default: ./kontrakt/
+      default: >-
+        ./kontrakt/
   outputs:
   steps:
   - name: script
@@ -23,7 +24,7 @@ spec:
     args:
     - -c
     - |
-      kubectl apply -f ${inputs.params.apply}
+      kubectl apply ${inputs.params.apply}
       while true; do
         date
         kubectl get pods -l test-type=completion -o jsonpath='{range .items[*]}{.metadata.name} {range .status.conditions[0]}{.reason} {.status}{"\n"}' > /teststatus
